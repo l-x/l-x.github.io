@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Php | l-x.github.io]]></title>
-  <link href="http://l-x.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Di | l-x.github.io]]></title>
+  <link href="http://l-x.github.io/blog/categories/di/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
   <updated>2014-09-25T23:55:08+02:00</updated>
   <id>http://l-x.github.io/</id>
@@ -12,67 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Determine the Type of a PHP Array]]></title>
-    <link href="http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array/"/>
-    <updated>2014-09-03T00:00:00+02:00</updated>
-    <id>http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array</id>
-    <content type="html"><![CDATA[<p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
-
-<p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
-
-<p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
-
-<!--more-->
-
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_int</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>This function simply compares the number of items which keys are integers to the number of all items in the array. If both are equal the array is indexed.</p>
-
-<p>As a variation one could use <code>is_string()</code> instead of <code>is_int()</code>:</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_string</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>The advantage of this variant is that no additional count($array) is required, so it should be slightly faster than the first variant.</p>
-
-<p>Both examples can easily be modified to return the type of the array:</p>
-
-<p><div><script src='https://gist.github.com/7765283.js'></script>
-<noscript><pre><code>&lt;?php
-
-/**
- * @link https://l-x.github.io/code/2014/09/03/determine-the-type-of-a-php-array/
- * 
- * @param array $array
- *
- * @return int
- */
-function get_array_type(array $array) {
-	$keyvalue_count = count(array_filter(array_keys($array), 'is_string'));
-	
-	switch ($keyvalue_count) {
-		case 0: 		return 0; //completely indexed or empty array
-		case count($array): 	return 1; // completely key=&gt;value based array
-		default: 		return 2; // mixed array
-	}
-}</code></pre></noscript></div>
-</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Making Zend Di and ServiceManager Run Standalone]]></title>

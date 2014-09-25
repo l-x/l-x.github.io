@@ -56,6 +56,10 @@
   
   
   
+<ul class="subscription">
+  <li><a href="http://delicious.com/lx_0" rel="subscribe-delicious" title="Delicious Bookmarks">Delicious</a></li>
+</ul>
+  
   
   
 <ul class="subscription">
@@ -98,6 +102,9 @@
 
 <time class='entry-date' datetime='2014-08-28T00:00:00+02:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
         
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://l-x.github.io">Comments</a>
+        
       </p>
     
   </header>
@@ -107,38 +114,68 @@
 
 <p>If you plan to use this components standalone, i. e. in your own software, you will not find one word about how to achieve this goal.</p>
 
+<!--more-->
+
+
 <p>After digging through the application skelleton I found the solution below. Like in a MVC application the DiC works as a fallback to the ServiceManager instance, so you can ask the ServiceManager for a service only known to the Di container.</p>
 
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="lineno"> 1</span> <span class="cp">&lt;?php</span>
-<span class="lineno"> 2</span> 
-<span class="lineno"> 3</span> <span class="k">use</span> <span class="nx">Zend\Di</span><span class="p">;</span>
-<span class="lineno"> 4</span> <span class="k">use</span> <span class="nx">Zend\Mvc\Service\ServiceManagerConfig</span><span class="p">;</span>
-<span class="lineno"> 5</span> <span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
-<span class="lineno"> 6</span> <span class="k">use</span> <span class="nx">Zend\ServiceManager\Di\DiAbstractServiceFactory</span><span class="p">;</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="sd">/**</span>
-<span class="lineno"> 9</span> <span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html</span>
-<span class="lineno">10</span> <span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html</span>
-<span class="lineno">11</span> <span class="sd"> */</span>
-<span class="lineno">12</span> <span class="nv">$configuration</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-<span class="lineno">13</span>     <span class="s1">&#39;definition&#39;</span>        <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\Di Configuration */</span><span class="p">),</span>
-<span class="lineno">14</span>     <span class="s1">&#39;service_manager&#39;</span>   <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\ServiceManager Configuration */</span><span class="p">),</span>
-<span class="lineno">15</span> <span class="p">);</span>
-<span class="lineno">16</span> 
-<span class="lineno">17</span> <span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Di\Di</span><span class="p">();</span>
-<span class="lineno">18</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">configure</span><span class="p">(</span>
-<span class="lineno">19</span>     <span class="k">new</span> <span class="nx">Di\Config</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">])</span>
-<span class="lineno">20</span> <span class="p">);</span>
-<span class="lineno">21</span> 
-<span class="lineno">22</span> <span class="nv">$service_manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span>
-<span class="lineno">23</span>     <span class="k">new</span> <span class="nx">ServiceManagerConfig</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;service_manager&#39;</span><span class="p">])</span>
-<span class="lineno">24</span> <span class="p">);</span>
-<span class="lineno">25</span> 
-<span class="lineno">26</span> <span class="nv">$service_manager</span><span class="o">-&gt;</span><span class="na">addAbstractFactory</span><span class="p">(</span>
-<span class="lineno">27</span>     <span class="k">new</span> <span class="nx">DiAbstractServiceFactory</span><span class="p">(</span><span class="nv">$di</span><span class="p">)</span>
-<span class="lineno">28</span> <span class="p">);</span></code></pre></div>
-
-
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\Di</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\Mvc\Service\ServiceManagerConfig</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\ServiceManager\Di\DiAbstractServiceFactory</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html</span>
+</span><span class='line'><span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="nv">$configuration</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;definition&#39;</span>        <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\Di Configuration */</span><span class="p">),</span>
+</span><span class='line'>    <span class="s1">&#39;service_manager&#39;</span>   <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\ServiceManager Configuration */</span><span class="p">),</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Di\Di</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$di</span><span class="o">-&gt;</span><span class="na">configure</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Di\Config</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$service_manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">ServiceManagerConfig</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;service_manager&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$service_manager</span><span class="o">-&gt;</span><span class="na">addAbstractFactory</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">DiAbstractServiceFactory</span><span class="p">(</span><span class="nv">$di</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -169,7 +206,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/php/'>php</a>
+    <a class='category' href='/blog/categories/di/'>di</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/zf2/'>zf2</a>
   
 </span>
 
@@ -215,6 +252,19 @@
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'lxgithubio';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 

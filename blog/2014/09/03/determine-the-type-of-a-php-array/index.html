@@ -56,6 +56,10 @@
   
   
   
+<ul class="subscription">
+  <li><a href="http://delicious.com/lx_0" rel="subscribe-delicious" title="Delicious Bookmarks">Delicious</a></li>
+</ul>
+  
   
   
 <ul class="subscription">
@@ -98,6 +102,9 @@
 
 <time class='entry-date' datetime='2014-09-03T00:00:00+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
         
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://l-x.github.io">Comments</a>
+        
       </p>
     
   </header>
@@ -108,6 +115,9 @@
 <p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
 
 <p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
+
+<!--more-->
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -186,7 +196,7 @@ function get_array_type(array $array) {
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/php-snippets/'>php snippets</a>
+    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/snippets/'>snippets</a>
   
 </span>
 
@@ -232,6 +242,19 @@ function get_array_type(array $array) {
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'lxgithubio';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
