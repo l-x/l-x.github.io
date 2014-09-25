@@ -2,16 +2,19 @@
 layout: post
 title: "Making Zend Di and ServiceManager run standalone"
 description: "Successfully using ZF2's Di and ServiceManager outside a ZF2 MVC application"
-category: php
+category: 
+    - php
+    - ZF2
+    - Di
 tags: [php,zf2,di,notetomyself]
 ---
 Setting up the Zend Framework 2 DiC and ServiceManager inside a ZF2 MVC application is done by the framework, you will only have to write your configuration array.
 
 If you plan to use this components standalone, i. e. in your own software, you will not find one word about how to achieve this goal.
-
+<!--more-->
 After digging through the application skelleton I found the solution below. Like in a MVC application the DiC works as a fallback to the ServiceManager instance, so you can ask the ServiceManager for a service only known to the Di container.
 
-{% highlight php linenos %}
+{% codeblock lang:php %}
 <?php
 
 use Zend\Di;
@@ -41,4 +44,4 @@ $service_manager->addAbstractFactory(
     new DiAbstractServiceFactory($di)
 );
 
-{% endhighlight %}
+{% endcodeblock %}
