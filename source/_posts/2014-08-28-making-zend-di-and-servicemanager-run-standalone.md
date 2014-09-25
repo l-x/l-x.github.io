@@ -2,6 +2,8 @@
 layout: post
 title: "Making Zend Di and ServiceManager run standalone"
 description: "Successfully using ZF2's Di and ServiceManager outside a ZF2 MVC application"
+comments: true
+sharing: true
 category: 
     - php
     - ZF2

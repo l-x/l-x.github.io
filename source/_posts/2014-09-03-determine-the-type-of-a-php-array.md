@@ -2,6 +2,8 @@
 layout: post
 title: "Determine the type of a PHP array"
 description: "How to find out, if an array is a list or a dictionary"
+comments: true
+sharing: true
 category: 
     - php
     - snippets
@@ -12,7 +14,7 @@ PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).
 Sometimes you have to determine if an array is indexed (`array('foo', 'bar', 'baz')`) or key => value based (`array('foo' => 'bar', 'herp' => 'derp')`). 
 
 Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  `array_filter()` on the array’s keys to determine if they’re all integers:
-<!--more-->
+
 {% codeblock lang:php %}
 function is_array_indexed($array) { 
 	return count(array_filter(array_keys($array), 'is_int') == count($array); 
