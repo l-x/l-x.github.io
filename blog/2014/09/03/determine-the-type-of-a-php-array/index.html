@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>l-x.github.io</title>
+  <title>Determine the Type of a PHP Array - l-x.github.io</title>
   <meta name="author" content="l-x">
 
   
-  <meta name="description" content="PHP’s arrays are a mix of dictionaries and lists (i. e. in Python). Sometimes you have to determine if an array is indexed (array('foo', 'bar', 'baz &hellip;">
+  <meta name="description" content="How to find out, if an array is a list or a dictionary">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://l-x.github.io">
+  <link rel="canonical" href="http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="l-x.github.io" type="application/atom+xml">
@@ -80,15 +80,14 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/09/03/determine-the-type-of-a-php-array/">Determine the Type of a PHP Array</a></h1>
+      
+        <h1 class="entry-title">Determine the Type of a PHP Array</h1>
+      
     
     
       <p class="meta">
@@ -104,7 +103,7 @@
   </header>
 
 
-  <div class="entry-content"><p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
+<div class="entry-content"><p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
 
 <p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
 
@@ -159,88 +158,70 @@ function get_array_type(array $array) {
 
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
+  
+
+
+  
+
+
+  <span class="byline author vcard">Authored by <span class="fn">
+  
+    <a href="https://plus.google.com/+alexanderwühr" rel="author">l-x</a>
+  
+  </span></span>
+
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-09-03T00:00:00+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php-snippets/'>php snippets</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone/">Making Zend Di and ServiceManager Run Standalone</a></h1>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array/" data-via="" data-counturl="http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
     
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-28T00:00:00+02:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Setting up the Zend Framework 2 DiC and ServiceManager inside a ZF2 MVC application is done by the framework, you will only have to write your configuration array.</p>
-
-<p>If you plan to use this components standalone, i. e. in your own software, you will not find one word about how to achieve this goal.</p>
-
-<p>After digging through the application skelleton I found the solution below. Like in a MVC application the DiC works as a fallback to the ServiceManager instance, so you can ask the ServiceManager for a service only known to the Di container.</p>
-
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="lineno"> 1</span> <span class="cp">&lt;?php</span>
-<span class="lineno"> 2</span> 
-<span class="lineno"> 3</span> <span class="k">use</span> <span class="nx">Zend\Di</span><span class="p">;</span>
-<span class="lineno"> 4</span> <span class="k">use</span> <span class="nx">Zend\Mvc\Service\ServiceManagerConfig</span><span class="p">;</span>
-<span class="lineno"> 5</span> <span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
-<span class="lineno"> 6</span> <span class="k">use</span> <span class="nx">Zend\ServiceManager\Di\DiAbstractServiceFactory</span><span class="p">;</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="sd">/**</span>
-<span class="lineno"> 9</span> <span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html</span>
-<span class="lineno">10</span> <span class="sd"> * @see http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html</span>
-<span class="lineno">11</span> <span class="sd"> */</span>
-<span class="lineno">12</span> <span class="nv">$configuration</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-<span class="lineno">13</span>     <span class="s1">&#39;definition&#39;</span>        <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\Di Configuration */</span><span class="p">),</span>
-<span class="lineno">14</span>     <span class="s1">&#39;service_manager&#39;</span>   <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="cm">/* Zend\ServiceManager Configuration */</span><span class="p">),</span>
-<span class="lineno">15</span> <span class="p">);</span>
-<span class="lineno">16</span> 
-<span class="lineno">17</span> <span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Di\Di</span><span class="p">();</span>
-<span class="lineno">18</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">configure</span><span class="p">(</span>
-<span class="lineno">19</span>     <span class="k">new</span> <span class="nx">Di\Config</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">])</span>
-<span class="lineno">20</span> <span class="p">);</span>
-<span class="lineno">21</span> 
-<span class="lineno">22</span> <span class="nv">$service_manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span>
-<span class="lineno">23</span>     <span class="k">new</span> <span class="nx">ServiceManagerConfig</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;service_manager&#39;</span><span class="p">])</span>
-<span class="lineno">24</span> <span class="p">);</span>
-<span class="lineno">25</span> 
-<span class="lineno">26</span> <span class="nv">$service_manager</span><span class="o">-&gt;</span><span class="na">addAbstractFactory</span><span class="p">(</span>
-<span class="lineno">27</span>     <span class="k">new</span> <span class="nx">DiAbstractServiceFactory</span><span class="p">(</span><span class="nv">$di</span><span class="p">)</span>
-<span class="lineno">28</span> <span class="p">);</span></code></pre></div>
-
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone/" title="Previous Post: Making Zend Di and ServiceManager run standalone">&laquo; Making Zend Di and ServiceManager run standalone</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     
   
 </aside>
+
 
     </div>
   </div>

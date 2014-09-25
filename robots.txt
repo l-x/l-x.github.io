@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://l-x.github.io/sitemap.xml

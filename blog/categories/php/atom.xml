@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Php | l-x.github.io]]></title>
+  <link href="http://l-x.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://l-x.github.io/"/>
+  <updated>2014-09-25T23:00:52+02:00</updated>
+  <id>http://l-x.github.io/</id>
+  <author>
+    <name><![CDATA[l-x]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Making Zend Di and ServiceManager Run Standalone]]></title>
+    <link href="http://l-x.github.io/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone/"/>
+    <updated>2014-08-28T00:00:00+02:00</updated>
+    <id>http://l-x.github.io/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone</id>
+    <content type="html"><![CDATA[<p>Setting up the Zend Framework 2 DiC and ServiceManager inside a ZF2 MVC application is done by the framework, you will only have to write your configuration array.</p>
+
+<p>If you plan to use this components standalone, i. e. in your own software, you will not find one word about how to achieve this goal.</p>
+
+<p>After digging through the application skelleton I found the solution below. Like in a MVC application the DiC works as a fallback to the ServiceManager instance, so you can ask the ServiceManager for a service only known to the Di container.</p>
+
+<p><div class="highlight"><pre><code class="language-php" data-lang="php"><span class="lineno"> 1</span> <span class="x">&amp;lt;?php&lt;/p&gt;</span>
+<span class="lineno"> 2</span> 
+<span class="lineno"> 3</span> <span class="x">&lt;p&gt;use Zend\Di;</span>
+<span class="lineno"> 4</span> <span class="x">use Zend\Mvc\Service\ServiceManagerConfig;</span>
+<span class="lineno"> 5</span> <span class="x">use Zend\ServiceManager\ServiceManager;</span>
+<span class="lineno"> 6</span> <span class="x">use Zend\ServiceManager\Di\DiAbstractServiceFactory;&lt;/p&gt;</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span> <span class="x">&lt;p&gt;/&lt;em&gt;&lt;em&gt;</span>
+<span class="lineno"> 9</span> <span class="x"> * @see &lt;a href=&quot;http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html&quot;&gt;http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html&lt;/a&gt;</span>
+<span class="lineno">10</span> <span class="x"> * @see &lt;a href=&quot;http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html&quot;&gt;http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html&lt;/a&gt;</span>
+<span class="lineno">11</span> <span class="x"> &lt;/em&gt;/</span>
+<span class="lineno">12</span> <span class="x">$configuration = array(</span>
+<span class="lineno">13</span> <span class="x">    &amp;lsquo;definition&amp;rsquo;        =&gt; array(/&lt;/em&gt; Zend\Di Configuration &lt;em&gt;/),</span>
+<span class="lineno">14</span> <span class="x">    &amp;lsquo;service_manager&amp;rsquo;   =&gt; array(/&lt;/em&gt; Zend\ServiceManager Configuration */),</span>
+<span class="lineno">15</span> <span class="x">);&lt;/p&gt;</span>
+<span class="lineno">16</span> 
+<span class="lineno">17</span> <span class="x">&lt;p&gt;$di = new Di\Di();</span>
+<span class="lineno">18</span> <span class="x">$di-&gt;configure(</span>
+<span class="lineno">19</span> <span class="x">    new Di\Config($configuration[&amp;lsquo;definition&amp;rsquo;])</span>
+<span class="lineno">20</span> <span class="x">);&lt;/p&gt;</span>
+<span class="lineno">21</span> 
+<span class="lineno">22</span> <span class="x">&lt;p&gt;$service_manager = new ServiceManager(</span>
+<span class="lineno">23</span> <span class="x">    new ServiceManagerConfig($configuration[&amp;lsquo;service_manager&amp;rsquo;])</span>
+<span class="lineno">24</span> <span class="x">);&lt;/p&gt;</span>
+<span class="lineno">25</span> 
+<span class="lineno">26</span> <span class="x">&lt;p&gt;$service_manager-&gt;addAbstractFactory(</span>
+<span class="lineno">27</span> <span class="x">    new DiAbstractServiceFactory($di)</span>
+<span class="lineno">28</span> <span class="x">);&lt;/p&gt;</span>
+<span class="lineno">29</span> 
+<span class="lineno">30</span> <span class="x">&lt;p&gt;</span></code></pre></div></p>
+]]></content>
+  </entry>
+  
+</feed>
