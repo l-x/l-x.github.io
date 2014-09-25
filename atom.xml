@@ -4,7 +4,7 @@
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-09-26T00:02:54+02:00</updated>
+  <updated>2014-09-26T00:23:19+02:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -23,6 +23,9 @@
 <p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
 
 <p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
+
+<!--more-->
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
