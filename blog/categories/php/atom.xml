@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Php | l-x.github.io]]></title>
+  <link href="http://l-x.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://l-x.github.io/"/>
+  <updated>2014-09-26T00:23:19+02:00</updated>
+  <id>http://l-x.github.io/</id>
+  <author>
+    <name><![CDATA[l-x]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Determine the Type of a PHP Array]]></title>
+    <link href="http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array/"/>
+    <updated>2014-09-03T00:00:00+02:00</updated>
+    <id>http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array</id>
+    <content type="html"><![CDATA[<p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
+
+<p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
+
+<p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
+
+<!--more-->
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_int</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>This function simply compares the number of items which keys are integers to the number of all items in the array. If both are equal the array is indexed.</p>
+
+<p>As a variation one could use <code>is_string()</code> instead of <code>is_int()</code>:</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_string</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>The advantage of this variant is that no additional count($array) is required, so it should be slightly faster than the first variant.</p>
+
+<p>Both examples can easily be modified to return the type of the array:</p>
+
+<p><div><script src='https://gist.github.com/7765283.js'></script>
+<noscript><pre><code>&lt;?php
+
+/**
+ * @link https://l-x.github.io/code/2014/09/03/determine-the-type-of-a-php-array/
+ * 
+ * @param array $array
+ *
+ * @return int
+ */
+function get_array_type(array $array) {
+	$keyvalue_count = count(array_filter(array_keys($array), 'is_string'));
+	
+	switch ($keyvalue_count) {
+		case 0: 		return 0; //completely indexed or empty array
+		case count($array): 	return 1; // completely key=&gt;value based array
+		default: 		return 2; // mixed array
+	}
+}</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Making Zend Di and ServiceManager Run Standalone]]></title>
+    <link href="http://l-x.github.io/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone/"/>
+    <updated>2014-08-28T00:00:00+02:00</updated>
+    <id>http://l-x.github.io/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone</id>
+    <content type="html"><![CDATA[<p>Setting up the Zend Framework 2 DiC and ServiceManager inside a ZF2 MVC application is done by the framework, you will only have to write your configuration array.</p>
+
+<p>If you plan to use this components standalone, i. e. in your own software, you will not find one word about how to achieve this goal.</p>
+
+<!--more-->
+
+
+<p>After digging through the application skelleton I found the solution below. Like in a MVC application the DiC works as a fallback to the ServiceManager instance, so you can ask the ServiceManager for a service only known to the Di container.</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">use</span> <span class="nx">Zend\Di</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\Mvc\Service\ServiceManagerConfig</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Zend\ServiceManager\Di\DiAbstractServiceFactory</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;/&lt;</span><span class="nx">em</span><span class="o">&gt;&lt;</span><span class="nx">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">see</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.quick-start.html&quot;</span><span class="o">&gt;</span><span class="nx">http</span><span class="o">://</span><span class="nx">framework</span><span class="o">.</span><span class="nx">zend</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">manual</span><span class="o">/</span><span class="mf">2.3</span><span class="o">/</span><span class="nx">en</span><span class="o">/</span><span class="nx">modules</span><span class="o">/</span><span class="nx">zend</span><span class="o">.</span><span class="nx">service</span><span class="o">-</span><span class="nx">manager</span><span class="o">.</span><span class="nx">quick</span><span class="o">-</span><span class="nx">start</span><span class="o">.</span><span class="nx">html</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">see</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;http://framework.zend.com/manual/2.3/en/modules/zend.di.configuration.html&quot;</span><span class="o">&gt;</span><span class="nx">http</span><span class="o">://</span><span class="nx">framework</span><span class="o">.</span><span class="nx">zend</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">manual</span><span class="o">/</span><span class="mf">2.3</span><span class="o">/</span><span class="nx">en</span><span class="o">/</span><span class="nx">modules</span><span class="o">/</span><span class="nx">zend</span><span class="o">.</span><span class="nx">di</span><span class="o">.</span><span class="nx">configuration</span><span class="o">.</span><span class="nx">html</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="nv">$configuration</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>    <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">definition</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span>        <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="o">/&lt;/</span><span class="nx">em</span><span class="o">&gt;</span> <span class="nx">Zend\Di</span> <span class="nx">Configuration</span> <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;/</span><span class="p">),</span>
+</span><span class='line'>    <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">service_manager</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span>   <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="o">/&lt;/</span><span class="nx">em</span><span class="o">&gt;</span> <span class="nx">Zend\ServiceManager</span> <span class="nx">Configuration</span> <span class="o">*/</span><span class="p">),</span>
+</span><span class='line'><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Di\Di</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$di</span><span class="o">-&gt;</span><span class="na">configure</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Di\Config</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">definition</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;])</span>
+</span><span class='line'><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$service_manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">ServiceManagerConfig</span><span class="p">(</span><span class="nv">$configuration</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">service_manager</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;])</span>
+</span><span class='line'><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$service_manager</span><span class="o">-&gt;</span><span class="na">addAbstractFactory</span><span class="p">(</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">DiAbstractServiceFactory</span><span class="p">(</span><span class="nv">$di</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
+  
+</feed>
