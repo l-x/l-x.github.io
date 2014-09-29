@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://l-x.github.io/blog/2014/09/29/call-user-func-struct/</loc>
+    
+    <lastmod>2014-09-29T15:22:56+02:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/</loc>
     
     <lastmod>2014-09-29T14:39:58+02:00</lastmod>
@@ -29,14 +37,14 @@
   
   <url>
     <loc>http://l-x.github.io/</loc>
-    <lastmod>2014-09-29T15:17:38+02:00</lastmod>
+    <lastmod>2014-09-29T15:26:02+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://l-x.github.io/blog/archives/</loc>
-    <lastmod>2014-09-29T15:17:38+02:00</lastmod>
+    <lastmod>2014-09-29T15:26:02+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

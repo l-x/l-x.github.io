@@ -4,7 +4,7 @@
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-09-29T15:17:38+02:00</updated>
+  <updated>2014-09-29T15:26:02+02:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -12,6 +12,81 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Call_user_func_struct]]></title>
+    <link href="http://l-x.github.io/blog/2014/09/29/call-user-func-struct/"/>
+    <updated>2014-09-29T15:22:56+02:00</updated>
+    <id>http://l-x.github.io/blog/2014/09/29/call-user-func-struct</id>
+    <content type="html"><![CDATA[<p>Wrapper function hack for <code>call_user_func_array</code> which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as possible to the behavior of <code>call_user_func_array</code>.</p>
+
+<!--more-->
+
+
+<div><script src='https://gist.github.com/7581105.js'></script>
+<noscript><pre><code>&lt;?php
+
+/**
+ * @link https://boolshit.de/2013/11/calling-php-functions-with-keyword-arguments/
+ * 
+ * @param callback $function
+ * @param array    $param_struct
+ *
+ * @return mixed
+ */
+function call_user_func_struct($function, array $param_struct) {
+
+    /**
+     * @param callback $function
+     *
+     * @return ReflectionFunction|ReflectionMethod
+     */
+    $getReflection = function ($function) {
+        switch(true) {
+            case ($function instanceof \Closure):
+            case (is_string($function) &amp;&amp; function_exists($function));
+                return new \ReflectionFunction($function);
+                break;
+            case (is_string($function) &amp;&amp; strpos($function, '::') !== false):
+                $function = explode('::', $function, 2);
+            case (is_array($function) &amp;&amp; count($function) == 2 &amp;&amp; (is_object($function[0]) || is_string($function[0])) &amp;&amp; is_string($function[1])):
+                return new \ReflectionMethod($function[0], $function[1]);
+                break;
+            default:
+                trigger_error(sprintf(&quot;call_user_func_array() expects parameter 1 to be a valid callback, function '%s' not found or invalid function name&quot;, print_r($function, true)), E_USER_WARNING);
+                exit;
+                break;
+        }
+    };
+
+    /**
+     * @param array                  $params
+     * @param \ReflectionParameter[] $reflection
+     *
+     * @return array
+     */
+    $prepareArguments = function (array $params, array $reflection) {
+        $prepared_arguments = array();
+
+        foreach($reflection as $parameter) {
+            if(isset($params[$parameter-&gt;getName()])) {
+                $prepared_arguments[] = $params[$parameter-&gt;getName()];
+            } else if($parameter-&gt;isDefaultValueAvailable()) {
+                $prepared_arguments[] = $parameter-&gt;getDefaultValue();
+            } else {
+                trigger_error(sprintf(&quot;Missing argument %s ($%s) &quot;, count($prepared_arguments) + 1, $parameter-&gt;getName()), E_USER_WARNING);
+                exit;
+            }
+        }
+
+        return $prepared_arguments;
+    };
+
+    return call_user_func_array($function, $prepareArguments($param_struct, $getReflection($function)-&gt;getParameters()));
+}</code></pre></noscript></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Messing Around With PHP's Late Static Binding]]></title>
