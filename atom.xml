@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-
+  <logo>http://l-x.github.io/images/lx.png</logo>
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-09-29T15:33:39+02:00</updated>
+  <updated>2014-09-30T14:40:26+02:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -85,6 +85,8 @@ function call_user_func_struct($function, array $param_struct) {
     return call_user_func_array($function, $prepareArguments($param_struct, $getReflection($function)-&gt;getParameters()));
 }</code></pre></noscript></div>
 
+
+
 ]]></content>
   </entry>
   
@@ -143,6 +145,8 @@ var_dump($expected_instance_of_B);
  */
 
 </code></pre></noscript></div>
+
+
 
 ]]></content>
   </entry>
@@ -283,6 +287,8 @@ function get_array_type(array $array) {
 </span><span class='line'>    <span class="k">new</span> <span class="nx">DiAbstractServiceFactory</span><span class="p">(</span><span class="nv">$di</span><span class="p">)</span>
 </span><span class='line'><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
 
 ]]></content>
   </entry>
