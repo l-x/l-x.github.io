@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Messing Around With PHP&#8217;s Late Static Binding - l-x.github.io</title>
+  <title>Call_user_func_struct - l-x.github.io</title>
   <meta name="author" content="l-x">
 
   
-  <meta name="description" content="Some weird PHP behavior I stumbled over while debugging our software. This is known at least since 2009 (https://bugs.php.net/bug.php?id=50031). &hellip;">
+  <meta name="description" content="Wrapper function hack for call_user_func_array which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding">
+  <link rel="canonical" href="http://l-x.github.io/blog/2014/09/29/call-user-func-struct">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="l-x.github.io" type="application/atom+xml">
@@ -91,7 +91,7 @@
   <header>
     
       
-        <h1 class="entry-title">Messing Around With PHP&#8217;s Late Static Binding</h1>
+        <h1 class="entry-title">Call_user_func_struct</h1>
       
     
     
@@ -101,7 +101,7 @@
 
 
 
-<time class='entry-date' datetime='2014-09-29T14:39:58+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:39 pm</span></time>
+<time class='entry-date' datetime='2014-09-29T15:22:56+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:22 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://l-x.github.io">Comments</a>
@@ -111,56 +111,72 @@
   </header>
 
 
-<div class="entry-content"><p>Some weird PHP behavior I stumbled over while debugging our software. This is known at least since 2009 (<a href="https://bugs.php.net/bug.php?id=50031">https://bugs.php.net/bug.php?id=50031</a>). Maybe this opens a few new possibilities for dependency injection or nasty hacks.</p>
+<div class="entry-content"><p>Wrapper function hack for <code>call_user_func_array</code> which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as possible to the behavior of <code>call_user_func_array</code>.</p>
 
 <!--more-->
 
 
-<div><script src='https://gist.github.com/08e14a5060495add5842.js'></script>
+<div><script src='https://gist.github.com/7581105.js'></script>
 <noscript><pre><code>&lt;?php
 
-class A {
-
-    public function createInstance() {
-        /** 
-         * Calling method static even if 
-         * defined non-static in class B
-         */
-        return B::createInstance();
-    }
-}
-
-class B {
-
-    public function createInstance() {
-        return new static();
-    }
-
-}
-
-
-$instance_of_A = new A();
-
-$expected_instance_of_B = $instance_of_A-&gt;createInstance();
-
-var_dump($expected_instance_of_B);
-
 /**
- * Expected:
+ * @link https://boolshit.de/2013/11/calling-php-functions-with-keyword-arguments/
  * 
- * class B#2 (0) {
- * 
- * }
- * 
- * Result:
- * 
- * class A#2 (0) {
- * 
- * }
- * 
+ * @param callback $function
+ * @param array    $param_struct
+ *
+ * @return mixed
  */
+function call_user_func_struct($function, array $param_struct) {
 
-</code></pre></noscript></div>
+    /**
+     * @param callback $function
+     *
+     * @return ReflectionFunction|ReflectionMethod
+     */
+    $getReflection = function ($function) {
+        switch(true) {
+            case ($function instanceof \Closure):
+            case (is_string($function) &amp;&amp; function_exists($function));
+                return new \ReflectionFunction($function);
+                break;
+            case (is_string($function) &amp;&amp; strpos($function, '::') !== false):
+                $function = explode('::', $function, 2);
+            case (is_array($function) &amp;&amp; count($function) == 2 &amp;&amp; (is_object($function[0]) || is_string($function[0])) &amp;&amp; is_string($function[1])):
+                return new \ReflectionMethod($function[0], $function[1]);
+                break;
+            default:
+                trigger_error(sprintf(&quot;call_user_func_array() expects parameter 1 to be a valid callback, function '%s' not found or invalid function name&quot;, print_r($function, true)), E_USER_WARNING);
+                exit;
+                break;
+        }
+    };
+
+    /**
+     * @param array                  $params
+     * @param \ReflectionParameter[] $reflection
+     *
+     * @return array
+     */
+    $prepareArguments = function (array $params, array $reflection) {
+        $prepared_arguments = array();
+
+        foreach($reflection as $parameter) {
+            if(isset($params[$parameter-&gt;getName()])) {
+                $prepared_arguments[] = $params[$parameter-&gt;getName()];
+            } else if($parameter-&gt;isDefaultValueAvailable()) {
+                $prepared_arguments[] = $parameter-&gt;getDefaultValue();
+            } else {
+                trigger_error(sprintf(&quot;Missing argument %s ($%s) &quot;, count($prepared_arguments) + 1, $parameter-&gt;getName()), E_USER_WARNING);
+                exit;
+            }
+        }
+
+        return $prepared_arguments;
+    };
+
+    return call_user_func_array($function, $prepareArguments($param_struct, $getReflection($function)-&gt;getParameters()));
+}</code></pre></noscript></div>
 
 
 
@@ -188,12 +204,12 @@ var_dump($expected_instance_of_B);
 
 
 
-<time class='entry-date' datetime='2014-09-29T14:39:58+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:39 pm</span></time>
+<time class='entry-date' datetime='2014-09-29T15:22:56+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:22 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/late-static-binding/'>late static binding</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/snippets/'>snippets</a>
+    <a class='category' href='/blog/categories/hacks/'>hacks</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/snippets/'>snippets</a>
   
 </span>
 
@@ -202,7 +218,7 @@ var_dump($expected_instance_of_B);
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/" data-via="" data-counturl="http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://l-x.github.io/blog/2014/09/29/call-user-func-struct/" data-via="" data-counturl="http://l-x.github.io/blog/2014/09/29/call-user-func-struct/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -213,10 +229,8 @@ var_dump($expected_instance_of_B);
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/03/determine-the-type-of-a-php-array/" title="Previous Post: Determine the type of a PHP array">&laquo; Determine the type of a PHP array</a>
+        <a class="basic-alignment left" href="/blog/2014/09/29/messing-around-with-phps-late-static-binding/" title="Previous Post: Messing around with PHP's late static binding">&laquo; Messing around with PHP&#8217;s late static binding</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/09/29/call-user-func-struct/" title="Next Post: call_user_func_struct">call_user_func_struct &raquo;</a>
       
     </p>
   </footer>
@@ -253,8 +267,8 @@ var_dump($expected_instance_of_B);
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/';
-        var disqus_url = 'http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/';
+        var disqus_identifier = 'http://l-x.github.io/blog/2014/09/29/call-user-func-struct/';
+        var disqus_url = 'http://l-x.github.io/blog/2014/09/29/call-user-func-struct/';
         var disqus_script = 'embed.js';
       
     (function () {
