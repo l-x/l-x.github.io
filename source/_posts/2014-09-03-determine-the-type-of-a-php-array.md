@@ -35,4 +35,4 @@ The advantage of this variant is that no additional count($array) is required, s
 
 Both examples can easily be modified to return the type of the array:
 
-{% gist 7765283 %}
+{% gistfy 7765283 %}
