@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Github | l-x.github.io]]></title>
+  <link href="http://l-x.github.io/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://l-x.github.io/"/>
+  <updated>2014-12-11T11:54:50+01:00</updated>
+  <id>http://l-x.github.io/</id>
+  <author>
+    <name><![CDATA[l-x]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Create an Empty Branch With Git]]></title>
+    <link href="http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/"/>
+    <updated>2014-12-11T10:49:20+01:00</updated>
+    <id>http://l-x.github.io/blog/2014/12/11/git-create-empty-branch</id>
+    <content type="html"><![CDATA[<p>Sometimes you need to create an emtpy branch, especially for <a href="https://github.com" title="GitHub">GitHub&rsquo;s</a> <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">project pages</a>. Below you will find the most simple solutin I&rsquo;ve found so far.</p>
+
+<!--more-->
+
+
+<pre><code class="sh">$ git checkout --orphan gh-pages # create orphan branch
+Switched to a new branch 'gh-pages'
+
+$ git branch # make sure not to be in any branch
+  master
+
+$ git reset --hard HEAD # reset working tree
+
+$ git commit --allow-empty -m "initial empty commit" # create empty commit, best practice
+[gh-pages (root-commit) b00b135] initial empty commit
+
+$ git branch # check if the new branch was created
+* gh-pages
+  master
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

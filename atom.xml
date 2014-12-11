@@ -4,7 +4,7 @@
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-12-10T17:40:18+01:00</updated>
+  <updated>2014-12-11T11:54:50+01:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Create an Empty Branch With Git]]></title>
+    <link href="http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/"/>
+    <updated>2014-12-11T10:49:20+01:00</updated>
+    <id>http://l-x.github.io/blog/2014/12/11/git-create-empty-branch</id>
+    <content type="html"><![CDATA[<p>Sometimes you need to create an emtpy branch, especially for <a href="https://github.com" title="GitHub">GitHub&rsquo;s</a> <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">project pages</a>. Below you will find the most simple solutin I&rsquo;ve found so far.</p>
+
+<!--more-->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git checkout --orphan gh-pages <span class="c"># create orphan branch</span>
+</span><span class='line'>Switched to a new branch <span class="s1">&#39;gh-pages&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git branch <span class="c"># make sure not to be in any branch</span>
+</span><span class='line'>  master
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git reset --hard HEAD <span class="c"># reset working tree</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git commit --allow-empty -m <span class="s2">&quot;initial empty commit&quot;</span> <span class="c"># create empty commit, best practice</span>
+</span><span class='line'><span class="o">[</span>gh-pages <span class="o">(</span>root-commit<span class="o">)</span> b00b135<span class="o">]</span> initial empty commit
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git branch <span class="c"># check if the new branch was created</span>
+</span><span class='line'>* gh-pages
+</span><span class='line'>  master
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Call_user_func_struct]]></title>

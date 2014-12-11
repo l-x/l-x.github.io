@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/</loc>
+    <lastmod>2014-12-11T10:49:20+01:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://l-x.github.io/blog/2014/09/29/call-user-func-struct/</loc>
     <lastmod>2014-09-29T15:22:56+02:00</lastmod>
     <priority>0.8</priority>
@@ -22,13 +27,13 @@
   </url>
   <url>
     <loc>http://l-x.github.io/</loc>
-    <lastmod>2014-12-10T17:40:18+01:00</lastmod>
+    <lastmod>2014-12-11T11:54:50+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/archives/</loc>
-    <lastmod>2014-12-10T17:40:18+01:00</lastmod>
+    <lastmod>2014-12-11T11:54:50+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

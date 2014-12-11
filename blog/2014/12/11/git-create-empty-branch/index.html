@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Call_user_func_struct - l-x.github.io</title>
+  <title>Create an Empty Branch With Git - l-x.github.io</title>
   <meta name="author" content="l-x">
 
   
-  <meta name="description" content="Wrapper function hack for call_user_func_array which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as &hellip;">
+  <meta name="description" content="Sometimes you need to create an emtpy branch, especially for GitHub&rsquo;s project pages. Below you will find the most simple solutin I&rsquo;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://l-x.github.io/blog/2014/09/29/call-user-func-struct">
+  <link rel="canonical" href="http://l-x.github.io/blog/2014/12/11/git-create-empty-branch">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="l-x.github.io" type="application/atom+xml">
@@ -91,7 +91,7 @@
   <header>
     
       
-        <h1 class="entry-title">Call_user_func_struct</h1>
+        <h1 class="entry-title">Create an Empty Branch With Git</h1>
       
     
     
@@ -101,7 +101,7 @@
 
 
 
-<time class='entry-date' datetime='2014-09-29T15:22:56+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:22 pm</span></time>
+<time class='entry-date' datetime='2014-12-11T10:49:20+01:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:49 am</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://l-x.github.io">Comments</a>
@@ -111,76 +111,42 @@
   </header>
 
 
-<div class="entry-content"><p>Wrapper function hack for <code>call_user_func_array</code> which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as possible to the behavior of <code>call_user_func_array</code>.</p>
+<div class="entry-content"><p>Sometimes you need to create an emtpy branch, especially for <a href="https://github.com" title="GitHub">GitHub&rsquo;s</a> <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">project pages</a>. Below you will find the most simple solutin I&rsquo;ve found so far.</p>
 
 <!--more-->
 
 
 
 
-<div><script src='http://www.gistfy.com/github/gist/7581105'></script>
-<noscript><pre><code>&lt;?php
-
-/**
- * @link https://boolshit.de/2013/11/calling-php-functions-with-keyword-arguments/
- * 
- * @param callback $function
- * @param array    $param_struct
- *
- * @return mixed
- */
-function call_user_func_struct($function, array $param_struct) {
-
-    /**
-     * @param callback $function
-     *
-     * @return ReflectionFunction|ReflectionMethod
-     */
-    $getReflection = function ($function) {
-        switch(true) {
-            case ($function instanceof \Closure):
-            case (is_string($function) &amp;&amp; function_exists($function));
-                return new \ReflectionFunction($function);
-                break;
-            case (is_string($function) &amp;&amp; strpos($function, '::') !== false):
-                $function = explode('::', $function, 2);
-            case (is_array($function) &amp;&amp; count($function) == 2 &amp;&amp; (is_object($function[0]) || is_string($function[0])) &amp;&amp; is_string($function[1])):
-                return new \ReflectionMethod($function[0], $function[1]);
-                break;
-            default:
-                trigger_error(sprintf(&quot;call_user_func_array() expects parameter 1 to be a valid callback, function '%s' not found or invalid function name&quot;, print_r($function, true)), E_USER_WARNING);
-                exit;
-                break;
-        }
-    };
-
-    /**
-     * @param array                  $params
-     * @param \ReflectionParameter[] $reflection
-     *
-     * @return array
-     */
-    $prepareArguments = function (array $params, array $reflection) {
-        $prepared_arguments = array();
-
-        foreach($reflection as $parameter) {
-            if(isset($params[$parameter-&gt;getName()])) {
-                $prepared_arguments[] = $params[$parameter-&gt;getName()];
-            } else if($parameter-&gt;isDefaultValueAvailable()) {
-                $prepared_arguments[] = $parameter-&gt;getDefaultValue();
-            } else {
-                trigger_error(sprintf(&quot;Missing argument %s ($%s) &quot;, count($prepared_arguments) + 1, $parameter-&gt;getName()), E_USER_WARNING);
-                exit;
-            }
-        }
-
-        return $prepared_arguments;
-    };
-
-    return call_user_func_array($function, $prepareArguments($param_struct, $getReflection($function)-&gt;getParameters()));
-}</code></pre></noscript></div>
-
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git checkout --orphan gh-pages <span class="c"># create orphan branch</span>
+</span><span class='line'>Switched to a new branch <span class="s1">&#39;gh-pages&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git branch <span class="c"># make sure not to be in any branch</span>
+</span><span class='line'>  master
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git reset --hard HEAD <span class="c"># reset working tree</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git commit --allow-empty -m <span class="s2">&quot;initial empty commit&quot;</span> <span class="c"># create empty commit, best practice</span>
+</span><span class='line'><span class="o">[</span>gh-pages <span class="o">(</span>root-commit<span class="o">)</span> b00b135<span class="o">]</span> initial empty commit
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git branch <span class="c"># check if the new branch was created</span>
+</span><span class='line'>* gh-pages
+</span><span class='line'>  master
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -206,12 +172,12 @@ function call_user_func_struct($function, array $param_struct) {
 
 
 
-<time class='entry-date' datetime='2014-09-29T15:22:56+02:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:22 pm</span></time>
+<time class='entry-date' datetime='2014-12-11T10:49:20+01:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:49 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/hacks/'>hacks</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/snippets/'>snippets</a>
+    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/github/'>github</a>
   
 </span>
 
@@ -220,7 +186,7 @@ function call_user_func_struct($function, array $param_struct) {
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://l-x.github.io/blog/2014/09/29/call-user-func-struct/" data-via="" data-counturl="http://l-x.github.io/blog/2014/09/29/call-user-func-struct/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/" data-via="" data-counturl="http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -231,10 +197,8 @@ function call_user_func_struct($function, array $param_struct) {
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/29/messing-around-with-phps-late-static-binding/" title="Previous Post: Messing around with PHP's late static binding">&laquo; Messing around with PHP&#8217;s late static binding</a>
+        <a class="basic-alignment left" href="/blog/2014/09/29/call-user-func-struct/" title="Previous Post: call_user_func_struct">&laquo; call_user_func_struct</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/12/11/git-create-empty-branch/" title="Next Post: Create an empty branch with git">Create an empty branch with git &raquo;</a>
       
     </p>
   </footer>
@@ -271,8 +235,8 @@ function call_user_func_struct($function, array $param_struct) {
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://l-x.github.io/blog/2014/09/29/call-user-func-struct/';
-        var disqus_url = 'http://l-x.github.io/blog/2014/09/29/call-user-func-struct/';
+        var disqus_identifier = 'http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/';
+        var disqus_url = 'http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/';
         var disqus_script = 'embed.js';
       
     (function () {
