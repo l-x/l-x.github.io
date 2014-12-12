@@ -4,7 +4,7 @@
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-12-12T11:46:58+01:00</updated>
+  <updated>2014-12-12T13:29:42+01:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -72,7 +72,7 @@
 
 
 
-<div><script src='http://www.gistfy.com/github/gist/7581105'></script>
+<div><script src='https://gist.github.com/7581105.js'></script>
 <noscript><pre><code>&lt;?php
 
 /**
@@ -149,7 +149,7 @@ function call_user_func_struct($function, array $param_struct) {
 <!--more-->
 
 
-<div><script src='http://www.gistfy.com/github/gist/08e14a5060495add5842'></script>
+<div><script src='https://gist.github.com/08e14a5060495add5842.js'></script>
 <noscript><pre><code>&lt;?php
 /**
  * @link https://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/
@@ -263,7 +263,7 @@ var_dump($expected_instance_of_B);
 
 <p>Both examples can easily be modified to return the type of the array:</p>
 
-<div><script src='http://www.gistfy.com/github/gist/7765283'></script>
+<div><script src='https://gist.github.com/7765283.js'></script>
 <noscript><pre><code>&lt;?php
 
 /**
