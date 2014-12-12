@@ -25,6 +25,10 @@ $header-font-size: 1.3em;
 	line-height: 1.5em;
 }
 
+.highlight .line-number  {
+	display: inline;
+}
+
 #content article {
 	padding-top: 2.3em !important;
 }
