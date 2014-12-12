@@ -20,15 +20,23 @@ $header-font-size: 1.3em;
 //$sidebar-pad-wide: 20px;
 //$sidebar-width-wide: 300px;
 
-.gist {
-	font-size:0.85em;
-	line-height: 1.5em;
-}
-
-.highlight .line-number  {
-	display: inline;
-}
-
 #content article {
 	padding-top: 2.3em !important;
+}
+
+.gist pre, figure.code, pre, .highlight .line-numbers {
+	box-shadow: none !important;
+}
+
+.gist .line-data {
+	line-height: 1.515em !important;
+}
+
+.gist .highlight {
+	border: none !important;
+}
+
+.gist-file {
+	border: 1px solid #ebebeb !important;
+	border-radius: 0 !important;
 }

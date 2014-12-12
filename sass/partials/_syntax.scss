@@ -1,8 +1,8 @@
-.highlight, html .gist .gist-file .gist-syntax .gist-highlight {
+.highlight {
   table td.code, td.line-data { width: 100%; }
   border: 1px solid $pre-border !important;
 }
-.highlight .line-numbers, html .gist .gist-file .gist-syntax .highlight .line_numbers {
+.highlight .line-numbers {
   text-align: right;
   font-size: 13px;
   line-height: 1.45em;
@@ -22,62 +22,11 @@
   @include border-radius(0);
 }
 
-figure.code, .gist-file, pre {
+figure.code, pre {
   @include box-shadow(rgba(#000, .06) 0 0 10px);
   .highlight pre { @include box-shadow(none); }
 }
 
-html .gist .gist-file {
-  margin-bottom: 1.8em;
-  position: relative;
-  border: none;
-  padding-top: image-height("code_bg.png") !important;
-  .highlight {
-    margin-bottom: 0;
-  }
-  .gist-syntax {
-    border-bottom: 0 !important;
-    background: none !important;
-    .gist-highlight {
-      background: $base03 !important;
-    }
-    .highlight pre {
-      @extend .pre-code;
-      font-size: 13px;
-      padding: 0;
-    }
-  }
-  .gist-meta {
-   padding: .6em 0.8em;
-   border: 1px solid lighten($base02, 2) !important;
-   color: $base01;
-   font-size: .7em !important;
-   @if $solarized == light {
-     background: lighten($base03, 2);
-     border: 1px solid $pre-border !important;
-     border-top: 1px solid lighten($base03, 2) !important;
-   } @else {
-     background: $base02;
-   }
-   @extend .sans;
-   line-height: 1.5em;
-    a {
-      color: mix($base1, $base01) !important;
-      @include hover-link;
-      &:hover { color: $base1 !important; }
-    }
-    a[href*='#file'] {
-      position: absolute; top: 0; left:0; right:0;
-      color: #474747 !important;
-      @extend .code-title;
-      &:hover { color: $link-color !important; }
-    }
-    a[href*=raw]{
-      @extend .download-source;
-      top: .4em;
-    }
-  }
-}
 pre {
   background: $pre-bg;
   @include border-radius(.4em);
@@ -112,7 +61,7 @@ p, li {
   pre code { font-size: 1em !important; background: none; border: none; }
 }
 
-.pre-code {
+.pre-code, .gist .line-pre {
   font-family: $mono !important;
   overflow: scroll;
   overflow-y: hidden;
@@ -121,10 +70,9 @@ p, li {
   overflow-x: auto;
   line-height: 1.45em;
   background: $base03 !important;
-  color: $base1 !important;
-  span { color: $base1 !important; }
+  //color: $base1;
+  //span { color: $base1 !important; }
   span { font-style: normal !important; font-weight: normal !important; }
-
   .c      { color: $base01 !important; font-style: italic !important; }                     /* Comment */
   .cm     { color: $base01 !important; font-style: italic !important; }                     /* Comment.Multiline */
   .cp     { color: $base01 !important; font-style: italic !important;  }                     /* Comment.Preproc */
@@ -191,7 +139,7 @@ p, li {
   div { .gd, .gd .x, .gi, .gi .x { display: inline-block; width: 100%; }}
 }
 
-.highlight, .gist-highlight {
+.highlight, .gist {
   pre { background: none; @include border-radius(0px); border: none; padding: 0; margin-bottom: 0; }
   margin-bottom: 1.8em;
   background: $base03;
@@ -206,7 +154,7 @@ $solar-scroll-thumb: rgba(#fff, .2);
   $solar-scroll-thumb: rgba(#000, .15);
 }
 
-pre, .highlight, .gist-highlight {
+pre, .highlight, .gist {
   &::-webkit-scrollbar {  height: .5em; background: $solar-scroll-bg; }
   &::-webkit-scrollbar-thumb:horizontal { background: $solar-scroll-thumb;  -webkit-border-radius: 4px; border-radius: 4px }
 }

@@ -12,4 +12,4 @@ categories:
 Wrapper function hack for `call_user_func_array` which enables you to use keyword arguments on PHP functions and methods. It aims to be as close as possible to the behavior of `call_user_func_array`.
 <!--more-->
 
-{% gistfy 7581105 %}
+{% gist 7581105 %}

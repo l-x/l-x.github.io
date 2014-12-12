@@ -9,6 +9,7 @@ category:
     - snippets
 tags: [php,Array]
 ---
+
 PHP’s arrays are a mix of dictionaries and lists (i. e. in Python). 
 
 Sometimes you have to determine if an array is a [list](http://en.wikipedia.org/wiki/List_%28abstract_data_type%29): 
@@ -52,6 +53,4 @@ The advantage of this variant is that no additional count($array) is required, s
 
 Both examples can easily be modified to return the type of the array:
 
-{% gistfy 7765283 %}
-
-
+{% gist 7765283 %}
