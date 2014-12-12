@@ -226,7 +226,25 @@
 
   <div class="entry-content"><p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
 
-<p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
+<p>Sometimes you have to determine if an array is a <a href="http://en.wikipedia.org/wiki/List_%28abstract_data_type%29">list</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">array</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or a <a href="http://en.wikipedia.org/wiki/Associative_array">dictionary</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s1">&#39;foo&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;herp&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;derp&#39;</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
 

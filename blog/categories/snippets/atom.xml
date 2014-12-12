@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Snippets | l-x.github.io]]></title>
   <link href="http://l-x.github.io/blog/categories/snippets/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-12-12T11:31:03+01:00</updated>
+  <updated>2014-12-12T11:46:58+01:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -157,7 +157,18 @@ var_dump($expected_instance_of_B);
     <id>http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array</id>
     <content type="html"><![CDATA[<p>PHP’s arrays are a mix of dictionaries and lists (i. e. in Python).</p>
 
-<p>Sometimes you have to determine if an array is indexed (<code>array('foo', 'bar', 'baz')</code>) or key => value based (<code>array('foo' =&gt; 'bar', 'herp' =&gt; 'derp')</code>).</p>
+<p>Sometimes you have to determine if an array is a <a href="http://en.wikipedia.org/wiki/List_%28abstract_data_type%29">list</a>:</p>
+
+<pre><code class="php">array('foo', 'bar', 'baz');
+</code></pre>
+
+<p>or a <a href="http://en.wikipedia.org/wiki/Associative_array">dictionary</a>:</p>
+
+<pre><code class="php">array(
+    'foo'   =&gt; 'bar', 
+    'herp'  =&gt; 'derp'
+);
+</code></pre>
 
 <p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
 
