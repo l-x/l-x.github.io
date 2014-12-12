@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Php | l-x.github.io]]></title>
   <link href="http://l-x.github.io/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-12-11T12:42:53+01:00</updated>
+  <updated>2014-12-12T11:31:03+01:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -27,7 +27,7 @@
 <noscript><pre><code>&lt;?php
 
 /**
- * @link https://boolshit.de/2013/11/calling-php-functions-with-keyword-arguments/
+ * @link http://l-x.github.io/blog/2014/09/29/call-user-func-struct/
  * 
  * @param callback $function
  * @param array    $param_struct
@@ -167,9 +167,17 @@ var_dump($expected_instance_of_B);
 <p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_int</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>This function simply compares the number of items which keys are integers to the number of all items in the array. If both are equal the array is indexed.</p>
@@ -179,9 +187,17 @@ var_dump($expected_instance_of_B);
 <p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">function</span> <span class="nf">is_array_indexed</span><span class="p">(</span><span class="nv">$array</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="nb">count</span><span class="p">(</span><span class="nb">array_filter</span><span class="p">(</span><span class="nb">array_keys</span><span class="p">(</span><span class="nv">$array</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">is_string</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>The advantage of this variant is that no additional count($array) is required, so it should be slightly faster than the first variant.</p>

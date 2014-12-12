@@ -4,7 +4,7 @@
   <title><![CDATA[l-x.github.io]]></title>
   <link href="http://l-x.github.io/atom.xml" rel="self"/>
   <link href="http://l-x.github.io/"/>
-  <updated>2014-12-11T12:42:53+01:00</updated>
+  <updated>2014-12-12T11:31:03+01:00</updated>
   <id>http://l-x.github.io/</id>
   <author>
     <name><![CDATA[l-x]]></name>
@@ -55,6 +55,8 @@
 </span><span class='line'>  master
 </span></code></pre></td></tr></table></div></figure>
 
+
+
 ]]></content>
   </entry>
   
@@ -74,7 +76,7 @@
 <noscript><pre><code>&lt;?php
 
 /**
- * @link https://boolshit.de/2013/11/calling-php-functions-with-keyword-arguments/
+ * @link http://l-x.github.io/blog/2014/09/29/call-user-func-struct/
  * 
  * @param callback $function
  * @param array    $param_struct
@@ -213,6 +215,8 @@ var_dump($expected_instance_of_B);
 <p>Unfortunately PHP has no built-in method to do so. One of the good solutions I’ve ran across is to use the  <code>array_filter()</code> on the array’s keys to determine if they’re all integers:</p>
 
 <!--more-->
+
+
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
