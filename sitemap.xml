@@ -3,38 +3,51 @@
   <url>
     <loc>http://l-x.github.io/blog/2014/12/11/git-create-empty-branch/</loc>
     <lastmod>2014-12-11T10:49:20+01:00</lastmod>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/2014/09/29/call-user-func-struct/</loc>
     <lastmod>2014-09-29T15:22:56+02:00</lastmod>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/2014/09/29/messing-around-with-phps-late-static-binding/</loc>
     <lastmod>2014-09-29T14:39:58+02:00</lastmod>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/2014/09/03/determine-the-type-of-a-php-array/</loc>
     <lastmod>2014-09-03T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/2014/08/28/making-zend-di-and-servicemanager-run-standalone/</loc>
     <lastmod>2014-08-28T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/</loc>
-    <lastmod>2014-12-12T13:29:42+01:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>http://l-x.github.io/blog/archives/</loc>
-    <lastmod>2014-12-12T13:29:42+01:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/php/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/zf2/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/di/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/snippets/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/late-static-binding/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/hacks/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/git/</loc>
+  </url>
+  <url>
+    <loc>http://l-x.github.io/blog/categories/github/</loc>
   </url>
 </urlset>
